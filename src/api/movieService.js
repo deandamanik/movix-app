@@ -21,3 +21,13 @@ export const searchMovies = async (query) => {
     return [];
   }
 };
+
+export const getMovieDetail = async (id) => {
+  try {
+    const response = await tmdbClient.get(`/movie/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching movie detail:", error);
+    return null;
+  }
+};

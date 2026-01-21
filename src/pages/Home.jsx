@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Search as SearchIcon } from 'lucide-react'; 
 import { getTrendingMovies, searchMovies } from '../api/movieService';
 import MovieSkeleton from '../components/MovieSkeleton';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -62,7 +63,7 @@ const Home = () => {
             [...Array(10)].map((_, i) => <MovieSkeleton key={i} />)
           ) : movies.length > 0 ? (
             movies.map((movie) => (
-              <div key={movie.id} className="group cursor-pointer">
+              <Link key={movie.id} to={`/movie/${movie.id}`} className="group cursor-pointer">
                 <div className="aspect-2/3 overflow-hidden rounded-movix bg-brand-light mb-3">
                   <img 
                     src={movie.poster_path 
@@ -74,7 +75,7 @@ const Home = () => {
                 </div>
                 <h3 className="font-medium text-sm line-clamp-1">{movie.title}</h3>
                 <p className="text-xs text-text-secondary mt-1">{movie.release_date?.split('-')[0] || 'N/A'}</p>
-              </div>
+              </Link>
             ))
           ) : (
             <div className="col-span-full text-center py-20 text-text-secondary">
