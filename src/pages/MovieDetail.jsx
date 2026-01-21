@@ -14,6 +14,7 @@ const MovieDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchAllData = async () => {
       const [detailData, castData] = await Promise.all([
         getMovieDetail(id),

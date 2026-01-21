@@ -30,7 +30,7 @@ const MovieInfo = ({ movie }) => {
         </div>
       </div>
 
-      <p className="text-l text-black/80 leading-relaxed mb-8 italic">
+      <p className="text-l text-black leading-relaxed mb-8 italic">
         "{movie.tagline || 'No tagline available'}"
       </p>
 
