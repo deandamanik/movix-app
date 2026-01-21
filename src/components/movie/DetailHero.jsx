@@ -6,7 +6,7 @@ const DetailHero = ({ backdropPath }) => {
         alt=""
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-linear-to-b from-black/60 via-white/60 to-white" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/90 via-white/40 to-white" />
     </div>
   );
 };
