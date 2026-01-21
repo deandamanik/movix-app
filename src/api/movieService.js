@@ -9,3 +9,15 @@ export const getTrendingMovies = async () => {
     return [];
   }
 };
+
+export const searchMovies = async (query) => {
+  try {
+    const response = await tmdbClient.get('/search/movie', {
+      params: { query: query } 
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error searching movies:", error);
+    return [];
+  }
+};
