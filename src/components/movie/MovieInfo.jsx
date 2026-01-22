@@ -1,6 +1,6 @@
 import { Star, Clock, Calendar, PlayCircle, Plus } from 'lucide-react';
 
-const MovieInfo = ({ movie }) => {
+const MovieInfo = ({ movie, onWatchTrailer }) => {
   return (
     <div className="flex-1 text-text-main">
       <div className="flex flex-wrap gap-2 mb-4">
@@ -35,7 +35,7 @@ const MovieInfo = ({ movie }) => {
       </p>
 
       <div className="flex flex-wrap gap-4 mb-10">
-        <button className="flex items-center gap-3 px-8 py-4 bg-brand-primary text-white rounded-2xl font-bold hover:scale-105 transition-all shadow-xl shadow-brand-primary/30">
+        <button onClick={onWatchTrailer} className="flex items-center gap-3 px-8 py-4 bg-brand-primary text-white rounded-2xl font-bold hover:scale-105 transition-all shadow-xl shadow-brand-primary/30">
           <PlayCircle size={22} /> Watch Trailer
         </button>
         <button className="flex items-center gap-3 px-8 py-4 bg-white border-2 border-brand-muted/30 text-text-main rounded-2xl font-bold hover:border-brand-primary hover:text-brand-primary transition-all">

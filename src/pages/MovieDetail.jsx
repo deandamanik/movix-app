@@ -1,27 +1,32 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getMovieDetail, getMovieCredits } from '../api/movieService';
+import { getMovieDetail, getMovieCredits, getMovieVideos } from '../api/movieService';
 import { ArrowLeft } from 'lucide-react';
 import DetailHero from '../components/movie/DetailHero';
 import MovieInfo from '../components/movie/MovieInfo';
 import MovieCast from '../components/movie/MovieCast';
+import TrailerModal from '../components/movie/TrailerModal';
 
 const MovieDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState([]);
+  const [trailerKey, setTrailerKey] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchAllData = async () => {
-      const [detailData, castData] = await Promise.all([
+      const [detail, credits, video] = await Promise.all([
         getMovieDetail(id),
-        getMovieCredits(id)
+        getMovieCredits(id),
+        getMovieVideos(id)
       ]);
-      setMovie(detailData);
-      setCast(castData);
+      setMovie(detail);
+      setCast(credits);
+      setTrailerKey(video?.key); 
       setLoading(false);
     };
     fetchAllData();
@@ -52,13 +57,20 @@ const MovieDetail = () => {
             />
           </div>
 
-          <MovieInfo movie={movie} />
+          <MovieInfo movie={movie} onWatchTrailer={() => setIsModalOpen(true)} />
         </div>
 
         <div className="border-t border-brand-muted/20 pt-12">
           <MovieCast cast={cast} />
         </div>
       </div>
+
+      {isModalOpen && (
+        <TrailerModal 
+          videoKey={trailerKey} 
+          onClose={() => setIsModalOpen(false)} 
+        />
+      )}
     </div>
   );
 };
