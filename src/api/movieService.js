@@ -21,3 +21,35 @@ export const searchMovies = async (query) => {
     return [];
   }
 };
+
+export const getMovieDetail = async (id) => {
+  try {
+    const response = await tmdbClient.get(`/movie/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching movie detail:", error);
+    return null;
+  }
+};
+
+export const getMovieCredits = async (id) => {
+  try {
+    const response = await tmdbClient.get(`/movie/${id}/credits`);
+    return response.data.cast; 
+  } catch (error) {
+    console.error("Error fetching credits:", error);
+    return [];
+  }
+};
+
+export const getMovieVideos = async (id) => {
+  try {
+    const response = await tmdbClient.get(`/movie/${id}/videos`);
+    return response.data.results.find(
+      (vid) => vid.type === "Trailer" && vid.site === "YouTube"
+    );
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    return null;
+  }
+};
