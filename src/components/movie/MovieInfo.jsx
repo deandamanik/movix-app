@@ -1,6 +1,10 @@
-import { Star, Clock, Calendar, PlayCircle, Plus } from 'lucide-react';
+import { Star, Clock, Calendar, PlayCircle, Plus, Check } from 'lucide-react';
+import { useWatchlistStore } from '../../store/useWatchlistStore';
 
 const MovieInfo = ({ movie, onWatchTrailer }) => {
+  const { toggleWatchlist, isInWatchlist } = useWatchlistStore();
+  const isAdded = isInWatchlist(movie.id);
+
   return (
     <div className="flex-1 text-text-main">
       <div className="flex flex-wrap gap-2 mb-4">
@@ -35,11 +39,28 @@ const MovieInfo = ({ movie, onWatchTrailer }) => {
       </p>
 
       <div className="flex flex-wrap gap-4 mb-10">
-        <button onClick={onWatchTrailer} className="flex items-center gap-3 px-8 py-4 bg-brand-primary text-white rounded-2xl font-bold hover:scale-105 transition-all shadow-xl shadow-brand-primary/30">
+        <button 
+          onClick={onWatchTrailer} 
+          className="flex items-center gap-3 px-8 py-4 bg-brand-primary text-white rounded-2xl font-bold hover:scale-105 transition-all shadow-xl shadow-brand-primary/30"
+        >
           <PlayCircle size={22} /> Watch Trailer
         </button>
-        <button className="flex items-center gap-3 px-8 py-4 bg-white border-2 border-brand-muted/30 text-text-main rounded-2xl font-bold hover:border-brand-primary hover:text-brand-primary transition-all">
-          <Plus size={22} /> Add to Watchlist
+
+        <button 
+          onClick={() => toggleWatchlist(movie)}
+          className="flex items-center gap-3 px-8 py-4 bg-white border-2 border-brand-muted/30 text-text-main rounded-2xl font-bold hover:border-brand-primary hover:text-brand-primary transition-all shadow-sm"
+        >
+          {isAdded ? (
+            <>
+              <Check size={22} className="text-brand-primary" /> 
+              <span>In Watchlist</span>
+            </>
+          ) : (
+            <>
+              <Plus size={22} /> 
+              <span>Add to Watchlist</span>
+            </>
+          )}
         </button>
       </div>
 
