@@ -64,3 +64,13 @@ export const getPopularMovies = async () => {
     return [];
   }
 };
+
+export const getTopRatedMovies = async () => {
+  try {
+    const response = await tmdbClient.get('/movie/top_rated');
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching top rated movies:", error);
+    return [];
+  }
+};

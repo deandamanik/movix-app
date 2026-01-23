@@ -1,11 +1,13 @@
 import MovieCard from '../MovieCard';
 import MovieSkeleton from '../MovieSkeleton';
 
-const TrendingSection = ({ movies, loading, timeWindow, setTimeWindow, isSearching }) => {
+const TrendingSection = ({ movies, loading, timeWindow, setTimeWindow, isSearching, query }) => {
   return (
     <section className="max-w-6xl mx-auto mb-12">
       <div className="flex items-center gap-6 mb-6 px-6 md:px-0">
-        <h2 className="text-2xl font-bold">Trending</h2>
+        <h2 className="text-2xl font-bold">
+          {isSearching ? `Results for "${query}"` : 'Trending'}
+        </h2>
         {!isSearching && (
           <div className="flex border-2 border-brand-primary rounded-full p-0.5">
             <button 

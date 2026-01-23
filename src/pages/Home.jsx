@@ -1,9 +1,10 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Search as SearchIcon } from 'lucide-react';
-import { getTrendingMovies, searchMovies, getPopularMovies } from '../api/movieService'; 
+import { getTrendingMovies, searchMovies, getPopularMovies, getTopRatedMovies } from '../api/movieService'; 
 import TrendingSection from '../components/home/TrendingSection';
 import TrailerSection from '../components/home/TrailerSection';
 import PopularSection from '../components/home/PopularSection';
+import TopRatedSection from '../components/home/TopRatedSection';
 
 const Home = () => {
   const [movies, setMovies] = useState([]); 
@@ -11,17 +12,20 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   const [timeWindow, setTimeWindow] = useState('day');
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
 
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const [trending, popular] = await Promise.all([
+      const [trending, popular, upcoming] = await Promise.all([
         getTrendingMovies(timeWindow),
-        getPopularMovies()
+        getPopularMovies(),
+        getTopRatedMovies()   
       ]);
       
       setMovies(trending);
       setPopularMovies(popular);
+      setTopRatedMovies(upcoming);
     } catch (error) {
       console.error("Error loading data:", error);
     } finally {
@@ -42,6 +46,8 @@ const Home = () => {
       const results = await searchMovies(value);
       setMovies(results);
       setLoading(false);
+    } else {
+      loadData();
     }
   };
 
@@ -81,6 +87,10 @@ const Home = () => {
               movies={popularMovies}
               loading={loading} 
             />
+            <TopRatedSection
+              movies={topRatedMovies}
+              loading={loading} 
+            />  
           </>
         )}
       </div>
