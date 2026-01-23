@@ -1,8 +1,8 @@
 import tmdbClient from './tmdbConfig';
 
-export const getTrendingMovies = async () => {
+export const getTrendingMovies = async (timeWindow = 'day') => {
   try {
-    const response = await tmdbClient.get('/trending/movie/day');
+    const response = await tmdbClient.get(`/trending/movie/${timeWindow}`);
     return response.data.results;
   } catch (error) {
     console.error("Error fetching trending movies:", error);
