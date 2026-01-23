@@ -54,3 +54,13 @@ export const getMovieVideos = async (id) => {
     return null;
   }
 };
+
+export const getPopularMovies = async () => {
+  try {
+    const response = await tmdbClient.get('/movie/popular');
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching popular movies:", error);
+    return [];
+  }
+};
