@@ -45,9 +45,10 @@ export const getMovieCredits = async (id) => {
 export const getMovieVideos = async (id) => {
   try {
     const response = await tmdbClient.get(`/movie/${id}/videos`);
-    return response.data.results.find(
+    const trailer = response.data.results.find(
       (vid) => vid.type === "Trailer" && vid.site === "YouTube"
     );
+    return trailer ? trailer.key : null; 
   } catch (error) {
     console.error("Error fetching videos:", error);
     return null;

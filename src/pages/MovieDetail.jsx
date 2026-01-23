@@ -26,7 +26,7 @@ const MovieDetail = () => {
       ]);
       setMovie(detail);
       setCast(credits);
-      setTrailerKey(video?.key); 
+      setTrailerKey(video); 
       setLoading(false);
     };
     fetchAllData();

@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Search as SearchIcon } from 'lucide-react';
 import { getTrendingMovies, searchMovies } from '../api/movieService';
 import TrendingSection from '../components/home/TrendingSection';
+import TrailerSection from '../components/home/TrailerSection';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -65,6 +66,10 @@ const Home = () => {
           query={query}
         />
       </div>
+    
+      {!query && movies.length > 0 && (
+        <TrailerSection movies={movies} />
+      )}
     </div>
   );
 };
