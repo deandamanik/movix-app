@@ -23,7 +23,7 @@ const MovieRowTemplate = ({ title, movies, loading, children, animationKey }) =>
   };
 
   return (
-    <section className="max-w-6xl mx-auto mb-12 relative group/row">
+    <section className="max-w-6xl mx-auto mt-12 mb-4 relative group/row">
       <div className="flex items-center gap-6 mb-6 px-6 md:px-0">
         <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
         {children}
@@ -45,7 +45,6 @@ const MovieRowTemplate = ({ title, movies, loading, children, animationKey }) =>
           )}
         </AnimatePresence>
 
-        {/* List Movie */}
         <motion.div
           ref={scrollRef}
           onScroll={handleScroll}
