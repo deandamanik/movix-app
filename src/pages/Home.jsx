@@ -81,8 +81,10 @@ const Home = () => {
 
         {!query && (
           <>
-            {movies.length > 0 && <TrailerSection movies={movies} />}
-            
+            <TrailerSection 
+              movies={movies} 
+              loading={loading} 
+            />
             <PopularSection
               movies={popularMovies}
               loading={loading} 

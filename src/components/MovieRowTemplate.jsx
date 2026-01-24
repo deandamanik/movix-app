@@ -45,26 +45,36 @@ const MovieRowTemplate = ({ title, movies, loading, children, animationKey }) =>
           )}
         </AnimatePresence>
 
-        <motion.div
-          ref={scrollRef}
-          onScroll={handleScroll}
-          key={animationKey || title}
-          className="flex overflow-x-auto gap-6 pb-6 px-6 md:px-0 scrollbar-hide snap-x snap-mandatory"
-        >
-          {loading ? (
-            [...Array(10)].map((_, i) => (
-              <div key={i} className="min-w-37.5 md:min-w-45">
-                <MovieSkeleton />
-              </div>
-            ))
-          ) : (
-            movies?.map((movie) => (
-              <div key={movie.id} className="min-w-37.5 md:min-w-45 snap-start">
-                <MovieCard movie={movie} />
-              </div>
-            ))
-          )}
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            ref={scrollRef}
+            onScroll={handleScroll}
+            key={loading ? 'skeleton' : animationKey} 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="flex overflow-x-auto gap-6 pb-6 px-6 md:px-0 scrollbar-hide snap-x snap-mandatory"
+          >
+            {loading ? (
+              [...Array(10)].map((_, i) => (
+                <div key={`skeleton-${i}`} className="min-w-37.5 md:min-w-45">
+                  <MovieSkeleton />
+                </div>
+              ))
+            ) : (
+              movies?.map((movie) => (
+                <motion.div 
+                  key={movie.id} 
+                  layout
+                  className="min-w-37.5 md:min-w-45 snap-start"
+                >
+                  <MovieCard movie={movie} />
+                </motion.div>
+              ))
+            )}
+          </motion.div>
+        </AnimatePresence>
 
         <div 
           className="absolute right-0 top-0 h-56.25 md:h-67.5 w-20 z-20 flex items-center justify-end pr-2 bg-linear-to-l from-app-bg via-app-bg/40 to-transparent pointer-events-none opacity-0 group-hover/row:opacity-100 transition-opacity duration-300"
