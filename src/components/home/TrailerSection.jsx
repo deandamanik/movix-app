@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Play } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getMovieVideos } from '../../api/movieService';
-import TrailerModal from '../movie/TrailerModal';
+import TrailerModal from '../TrailerModal';
 
 const TrailerSection = ({ movies }) => {
   const [activeBg, setActiveBg] = useState(movies[0]?.backdrop_path);

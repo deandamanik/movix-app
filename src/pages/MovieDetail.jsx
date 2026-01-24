@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import DetailHero from '../components/movie/DetailHero';
 import MovieInfo from '../components/movie/MovieInfo';
 import MovieCast from '../components/movie/MovieCast';
-import TrailerModal from '../components/movie/TrailerModal';
+import TrailerModal from '../components/TrailerModal';
 
 const MovieDetail = () => {
   const { id } = useParams();
