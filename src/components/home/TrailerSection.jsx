@@ -64,12 +64,12 @@ const TrailerSection = ({ movies, loading }) => {
         <div className="relative">
           <AnimatePresence>
             {showLeftArrow && !loading && (
-              <div className="absolute left-0 top-0 bottom-20 w-12 z-20 flex items-center pointer-events-none">
+              <div className="absolute -left-8 top-0 bottom-20 w-12 z-20 flex items-center pointer-events-none">
                 <button
                   onClick={() => scroll('left')}
-                  className="p-1.5 -ml-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white pointer-events-auto opacity-0 group-hover/section:opacity-100 transition-all hover:bg-white/20"
+                  className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white pointer-events-auto opacity-0 group-hover/section:opacity-100 transition-all hover:bg-white/40 hover:scale-110 shadow-xl"
                 >
-                  <ChevronLeft size={24} />
+                  <ChevronLeft size={28} />
                 </button>
               </div>
             )}
@@ -120,12 +120,12 @@ const TrailerSection = ({ movies, loading }) => {
           </div>
 
           {!loading && movies?.length > 0 && (
-            <div className="absolute right-0 top-0 bottom-20 w-12 z-20 flex items-center justify-end pointer-events-none">
+            <div className="absolute -right-8 top-0 bottom-20 w-12 z-20 flex items-center justify-end pointer-events-none">
               <button
                 onClick={() => scroll('right')}
-                className="p-1.5 -mr-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white pointer-events-auto opacity-0 group-hover/section:opacity-100 transition-all hover:bg-white/20"
+                className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white pointer-events-auto opacity-0 group-hover/section:opacity-100 transition-all hover:bg-white/40 hover:scale-110 shadow-xl"
               >
-                <ChevronRight size={24} />
+                <ChevronRight size={28} />
               </button>
             </div>
           )}
