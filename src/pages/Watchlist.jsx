@@ -1,9 +1,10 @@
 import { useWatchlistStore } from '../store/useWatchlistStore';
 import { Link, useNavigate } from 'react-router-dom'; 
-import { Trash2, ArrowLeft } from 'lucide-react'; 
+import { ArrowLeft } from 'lucide-react'; 
+import MovieCard from '../components/MovieCard'; 
 
 const Watchlist = () => {
-  const { watchlist, toggleWatchlist } = useWatchlistStore();
+  const { watchlist } = useWatchlistStore();
   const navigate = useNavigate(); 
 
   return (
@@ -35,33 +36,11 @@ const Watchlist = () => {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
             {watchlist.map((movie) => (
-              <div key={movie.id} className="relative group">
-                <button 
-                  onClick={() => toggleWatchlist(movie)}
-                  className="absolute top-2 right-2 z-10 p-2 bg-black/60 hover:bg-red-500 text-white rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300"
-                  title="Remove from watchlist"
-                >
-                  <Trash2 size={16} />
-                </button>
-
-                <Link to={`/movie/${movie.id}`} className="block">
-                  <div className="aspect-2/3 overflow-hidden rounded-movix bg-brand-light mb-3">
-                    <img 
-                      src={movie.poster_path 
-                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` 
-                        : 'https://via.placeholder.com/500x750?text=No+Image'} 
-                      alt={movie.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  <h3 className="font-medium text-sm line-clamp-1 transition-colors">
-                    {movie.title}
-                  </h3>
-                  <p className="text-xs text-text-secondary mt-1">
-                    {movie.release_date?.split('-')[0] || 'N/A'}
-                  </p>
-                </Link>
-              </div>
+              <MovieCard 
+                key={movie.id} 
+                movie={movie} 
+                isWatchlistPage={true} 
+              />
             ))}
           </div>
         )}
