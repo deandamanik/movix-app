@@ -1,3 +1,4 @@
+import { useEffect } from 'react'; // Tambahkan useEffect
 import { useWatchlistStore } from '../store/useWatchlistStore';
 import { Link, useNavigate } from 'react-router-dom'; 
 import { ArrowLeft } from 'lucide-react'; 
@@ -6,6 +7,10 @@ import MovieCard from '../components/MovieCard';
 const Watchlist = () => {
   const { watchlist } = useWatchlistStore();
   const navigate = useNavigate(); 
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white pt-12 pb-8 px-6">
