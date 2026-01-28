@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Heart, Star } from 'lucide-react'; 
+import { Heart, Star, Trash2 } from 'lucide-react'; 
 import { useWatchlistStore } from '../store/useWatchlistStore';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, isWatchlistPage = false }) => {
   const { toggleWatchlist, isInWatchlist } = useWatchlistStore();
   const isFavorite = isInWatchlist(movie.id);
+
   const getRatingColor = (rating) => {
     if (rating >= 7.5) return 'text-green-500';
     if (rating >= 5.5) return 'text-yellow-500';
@@ -46,20 +47,26 @@ const MovieCard = ({ movie }) => {
 
       <button 
         className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all duration-300 shadow-2xl border border-white/10
-          ${isFavorite 
-            ? 'bg-brand-primary text-white scale-110 opacity-100' 
-            : 'bg-black/30 text-white opacity-0 group-hover:opacity-100 hover:bg-brand-primary hover:scale-110'
+          ${isWatchlistPage 
+            ? 'bg-black/60 text-white hover:bg-red-500 opacity-0 group-hover:opacity-100' 
+            : isFavorite 
+              ? 'bg-brand-primary text-white scale-110 opacity-100' 
+              : 'bg-black/30 text-white opacity-0 group-hover:opacity-100 hover:bg-brand-primary hover:scale-110'
           }`}
         onClick={(e) => {
           e.preventDefault();
           toggleWatchlist(movie);
         }}
       >
-        <Heart 
-          size={14} 
-          fill={isFavorite ? "currentColor" : "none"} 
-          className={isFavorite ? "animate-pulse" : ""}
-        />
+        {isWatchlistPage ? (
+          <Trash2 size={14} />
+        ) : (
+          <Heart 
+            size={14} 
+            fill={isFavorite ? "currentColor" : "none"} 
+            className={isFavorite ? "animate-pulse" : ""}
+          />
+        )}
       </button>
     </div>
   );
