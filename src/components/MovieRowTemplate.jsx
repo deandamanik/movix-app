@@ -67,7 +67,7 @@ const MovieRowTemplate = ({ title, movies, loading, children, animationKey }) =>
                 <motion.div 
                   key={movie.id} 
                   layout
-                  className="min-w-37.5 md:min-w-45 snap-start"
+                  className="w-37.5 md:w-45 shrink-0 snap-start"
                 >
                   <MovieCard movie={movie} />
                 </motion.div>
