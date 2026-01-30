@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MovieCard from './MovieCard';
@@ -7,13 +7,20 @@ import MovieSkeleton from './MovieSkeleton';
 const MovieRowTemplate = ({ title, movies, loading, children, animationKey }) => {
   const scrollRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
 
   const handleScroll = () => {
     if (scrollRef.current) {
-      setShowLeftArrow(scrollRef.current.scrollLeft > 20);
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeftArrow(scrollLeft > 20);
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 5);
     }
   };
-  
+
+  useEffect(() => {
+    handleScroll();
+  }, [movies, loading]);
+
   const scroll = (direction) => {
     if (scrollRef.current) {
       const { clientWidth } = scrollRef.current;
@@ -58,7 +65,7 @@ const MovieRowTemplate = ({ title, movies, loading, children, animationKey }) =>
           >
             {loading ? (
               [...Array(10)].map((_, i) => (
-                <div key={`skeleton-${i}`} className="min-w-37.5 md:min-w-45">
+                <div key={`skeleton-${i}`} className="w-37.5 md:w-45 shrink-0">
                   <MovieSkeleton />
                 </div>
               ))
@@ -76,16 +83,20 @@ const MovieRowTemplate = ({ title, movies, loading, children, animationKey }) =>
           </motion.div>
         </AnimatePresence>
 
-        <div 
-          className="absolute right-0 top-0 h-56.25 md:h-67.5 w-20 z-20 flex items-center justify-end pr-2 bg-linear-to-l from-app-bg via-app-bg/40 to-transparent pointer-events-none opacity-0 group-hover/row:opacity-100 transition-opacity duration-300"
-        >
-          <button
-            onClick={() => scroll('right')}
-            className="p-2 rounded-full bg-surface shadow-soft pointer-events-auto hover:scale-110 active:scale-95 transition-all"
-          >
-            <ChevronRight className="text-brand-primary" size={28} />
-          </button>
-        </div>
+        <AnimatePresence>
+          {showRightArrow && (
+            <div 
+              className="absolute right-0 top-0 h-56.25 md:h-67.5 w-20 z-20 flex items-center justify-end pr-2 bg-linear-to-l from-app-bg via-app-bg/40 to-transparent pointer-events-none opacity-0 group-hover/row:opacity-100 transition-opacity duration-300"
+            >
+              <button
+                onClick={() => scroll('right')}
+                className="p-2 rounded-full bg-surface shadow-soft pointer-events-auto hover:scale-110 active:scale-95 transition-all"
+              >
+                <ChevronRight className="text-brand-primary" size={28} />
+              </button>
+            </div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
