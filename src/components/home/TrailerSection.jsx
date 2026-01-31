@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react'; // Tambahkan useEffect
 import { Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getMovieVideos } from '../../api/movieService';
@@ -10,13 +10,20 @@ const TrailerSection = ({ movies, loading }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const scrollRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true); 
   const currentBg = activeBg || (movies?.length > 0 ? movies[0].backdrop_path : null);
 
   const handleScroll = () => {
     if (scrollRef.current) {
-      setShowLeftArrow(scrollRef.current.scrollLeft > 20);
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeftArrow(scrollLeft > 20);
+      setShowRightArrow(scrollLeft + clientWidth < scrollWidth - 5);
     }
   };
+
+  useEffect(() => {
+    handleScroll();
+  }, [movies, loading]);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -119,16 +126,18 @@ const TrailerSection = ({ movies, loading }) => {
             )}
           </div>
 
-          {!loading && movies?.length > 0 && (
-            <div className="absolute -right-8 top-0 bottom-20 w-12 z-20 flex items-center justify-end pointer-events-none">
-              <button
-                onClick={() => scroll('right')}
-                className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white pointer-events-auto opacity-0 group-hover/section:opacity-100 transition-all hover:bg-white/40 hover:scale-110 shadow-xl"
-              >
-                <ChevronRight size={28} />
-              </button>
-            </div>
-          )}
+          <AnimatePresence>
+            {showRightArrow && !loading && movies?.length > 0 && (
+              <div className="absolute -right-8 top-0 bottom-20 w-12 z-20 flex items-center justify-end pointer-events-none">
+                <button
+                  onClick={() => scroll('right')}
+                  className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white pointer-events-auto opacity-0 group-hover/section:opacity-100 transition-all hover:bg-white/40 hover:scale-110 shadow-xl"
+                >
+                  <ChevronRight size={28} />
+                </button>
+              </div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
