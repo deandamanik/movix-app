@@ -35,10 +35,10 @@ export const getMovieDetail = async (id) => {
 export const getMovieCredits = async (id) => {
   try {
     const response = await tmdbClient.get(`/movie/${id}/credits`);
-    return response.data.cast; 
+    return response.data; 
   } catch (error) {
     console.error("Error fetching credits:", error);
-    return [];
+    return { cast: [], crew: [] };
   }
 };
 

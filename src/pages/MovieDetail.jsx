@@ -19,21 +19,39 @@ const MovieDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchAllData = async () => {
-      const [detail, credits, video] = await Promise.all([
-        getMovieDetail(id),
-        getMovieCredits(id),
-        getMovieVideos(id)
-      ]);
-      setMovie(detail);
-      setCast(credits);
-      setTrailerKey(video); 
-      setLoading(false);
+      setLoading(true);
+      try {
+        const [detail, creditsData, video] = await Promise.all([
+          getMovieDetail(id),
+          getMovieCredits(id),
+          getMovieVideos(id)
+        ]);
+
+        setMovie({ ...detail, credits: creditsData });
+
+        setCast(creditsData.cast || []);
+        
+        setTrailerKey(video);
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchAllData();
   }, [id]);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center text-brand-primary animate-pulse font-bold">Loading...</div>;
-  if (!movie) return <div className="min-h-screen flex items-center justify-center">Movie not found.</div>;
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center text-brand-primary animate-pulse font-bold">
+      Loading...
+    </div>
+  );
+  
+  if (!movie) return (
+    <div className="min-h-screen flex items-center justify-center">
+      Movie not found.
+    </div>
+  );
 
   return (
     <div className="relative min-h-screen bg-white">
@@ -57,7 +75,10 @@ const MovieDetail = () => {
             />
           </div>
 
-          <MovieInfo movie={movie} onWatchTrailer={() => setIsModalOpen(true)} />
+          <MovieInfo 
+            movie={movie} 
+            onWatchTrailer={() => setIsModalOpen(true)} 
+          />
         </div>
 
         <div className="border-t border-brand-muted/20 pt-12">
