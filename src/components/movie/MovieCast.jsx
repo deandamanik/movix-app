@@ -33,17 +33,18 @@ const MovieCast = ({ cast }) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05 
+        staggerChildren: 0.05,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
-      x: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
     }
   };
 
@@ -78,7 +79,7 @@ const MovieCast = ({ cast }) => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, amount: 0.1 }}
           className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory scroll-smooth"
           style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
         >
