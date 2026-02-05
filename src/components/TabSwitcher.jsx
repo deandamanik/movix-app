@@ -12,7 +12,7 @@ const TabSwitcher = ({ tabs, activeTab, onChange }) => {
           }`}
         >
           {activeTab === tab.id && (
-            <motion
+            <motion.div
               layoutId="activeTabPill"
               className="absolute inset-0 bg-brand-primary rounded-full -z-10"
               transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}

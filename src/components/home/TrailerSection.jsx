@@ -3,7 +3,7 @@ import { Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getMovieVideos } from '../../api/movieService';
 import TrailerModal from '../TrailerModal';
-import MovieSkeleton from '../MovieSkeleton';
+import MovieSkeleton from '../skeletons/MovieSkeleton';
 
 const TrailerSection = ({ movies, loading }) => {
   const [activeBg, setActiveBg] = useState(null);

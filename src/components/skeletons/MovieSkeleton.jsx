@@ -2,7 +2,6 @@ const MovieSkeleton = ({ type = "movie" }) => {
   return (
     <div className="flex flex-col gap-3">
       {type === "movie" ? (
-        // Versi Movie (Poster 2:3)
         <>
           <div className="aspect-2/3 w-full bg-brand-muted/20 rounded-movix animate-pulse" />
           <div className="h-4 bg-brand-muted/20 rounded-full w-3/4 animate-pulse" />

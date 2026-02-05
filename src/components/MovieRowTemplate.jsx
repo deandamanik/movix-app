@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MovieCard from './MovieCard';
-import MovieSkeleton from './MovieSkeleton';
+import MovieSkeleton from '../components/skeletons/MovieSkeleton';
 
 const MovieRowTemplate = ({ title, movies, loading, children, animationKey }) => {
   const scrollRef = useRef(null);
