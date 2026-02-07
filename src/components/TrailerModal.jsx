@@ -4,9 +4,16 @@ import { motion } from 'framer-motion';
 
 const TrailerModal = ({ videoKey, onClose }) => {
   useEffect(() => {
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
     document.body.style.overflow = 'hidden';
+    if (scrollBarWidth > 0) {
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
     };
   }, []);
 
@@ -19,7 +26,6 @@ const TrailerModal = ({ videoKey, onClose }) => {
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-100 flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
     >
-
       <div className="absolute inset-0" onClick={onClose} />
       
       <motion.div 
