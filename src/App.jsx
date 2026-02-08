@@ -3,13 +3,13 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Watchlist from './pages/Watchlist';
 import MovieDetail from './pages/MovieDetail';
-import WatchlistToast from './components/WatchlistToast'; 
+import GlobalToast from './components/GlobalToast';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-app-bg relative"> 
-        <WatchlistToast />
+        <GlobalToast />
         <Navbar />
         <main>
           <Routes>
