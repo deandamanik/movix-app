@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { useToastStore } from './useToastStore';
 
 export const useWatchlistStore = create(
   persist(
@@ -18,7 +19,7 @@ export const useWatchlistStore = create(
           });
         } else {
           if (watchlist.length >= 5) {
-            set({ errorMessage: 'Watchlist is full! Maximum 5 movies allowed.' });
+            useToastStore.getState().showToast('Watchlist is full! Maximum 5 movies allowed.');
             
             setTimeout(() => set({ errorMessage: null }), 3000);
           } else {
