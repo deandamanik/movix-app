@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Heart, Star, Trash2 } from 'lucide-react'; 
 import { useWatchlistStore } from '../store/useWatchlistStore';
+import NoPoster from '../assets/no-img.png'; 
 
 const MovieCard = ({ movie, isWatchlistPage = false }) => {
   const { toggleWatchlist, isInWatchlist } = useWatchlistStore();
@@ -18,9 +19,12 @@ const MovieCard = ({ movie, isWatchlistPage = false }) => {
         <div className="aspect-2/3 overflow-hidden rounded-movix bg-brand-light mb-3 relative shadow-md border border-white/5">
           <img 
             src={movie.poster_path 
-              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` 
-              : 'https://via.placeholder.com/500x750?text=No+Image'} 
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : NoPoster} 
             alt={movie.title}
+            onError={(e) => {
+              e.target.onerror = null; 
+              e.target.src = NoPoster;
+            }}
             className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
           />
 

@@ -69,7 +69,6 @@ const MovieInfo = ({ movie, onWatchTrailer }) => {
         "{movie.tagline || 'No tagline available'}"
       </motion.p>
 
-      {/* Buttons */}
       <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-12">
         <button 
           onClick={onWatchTrailer} 
@@ -96,7 +95,6 @@ const MovieInfo = ({ movie, onWatchTrailer }) => {
         </button>
       </motion.div>
 
-      {/* Storyline & Crew */}
       <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2 space-y-4">
           <h3 className="text-sm uppercase tracking-[0.2em] font-black text-brand-primary">Storyline</h3>

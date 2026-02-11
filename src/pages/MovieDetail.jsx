@@ -10,6 +10,7 @@ import TrailerModal from '../components/TrailerModal';
 import DetailHeroSkeleton from '../components/skeletons/DetailHeroSkeleton';
 import MovieInfoSkeleton from '../components/skeletons/MovieInfoSkeleton';
 import MovieCastSkeleton from '../components/skeletons/MovieCastSkeleton';
+import NoPoster from '../assets/no-img.png';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -72,10 +73,16 @@ const MovieDetail = () => {
           {loading ? (
             <div className="w-full md:w-80 aspect-2/3 shrink-0 bg-slate-200 animate-pulse rounded-2xl border-4 border-white shadow-lg" />
           ) : (
-            <div className="w-full md:w-80 shrink-0 shadow-2xl shadow-black/40 rounded-2xl overflow-hidden border-4 border-white">
+            <div className="w-full md:w-80 shrink-0 shadow-2xl shadow-black/40 rounded-2xl overflow-hidden border-4 border-white bg-brand-light">
               <img 
-                src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} 
+                src={movie?.poster_path 
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` 
+                  : NoPoster} 
                 alt={movie?.title}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = NoPoster;
+                }}
                 className="w-full aspect-2/3 object-cover"
               />
             </div>

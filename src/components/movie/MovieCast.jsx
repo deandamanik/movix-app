@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import NoProfile from '../../assets/no-img.png';
 
 const MovieCast = ({ cast }) => {
   const scrollRef = useRef(null);
@@ -60,6 +61,7 @@ const MovieCast = ({ cast }) => {
       </motion.h3>
       
       <div className="relative">
+        {/* Left Arrow */}
         <div 
           className={`absolute left-0 top-0 h-48 w-20 z-20 flex items-center justify-start pl-2 bg-linear-to-r from-white via-white/40 to-transparent pointer-events-none transition-opacity duration-300 ${
             showLeftArrow ? 'opacity-0 group-hover/row:opacity-100' : 'opacity-0'
@@ -93,8 +95,12 @@ const MovieCast = ({ cast }) => {
                 <img 
                   src={actor.profile_path 
                     ? `https://image.tmdb.org/t/p/w185${actor.profile_path}` 
-                    : 'https://via.placeholder.com/185x278?text=No+Photo'} 
+                    : NoProfile} 
                   alt={actor.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = NoProfile;
+                  }}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
