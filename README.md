@@ -1,16 +1,44 @@
-# React + Vite
+# Movix-App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Movix-app is a movie discovery application I built to experiment with third-party API integration and real-time data fetching using React. Basically, this is my playground for learning how to handle dynamic data and build a smooth user interface in a modern frontend environment.
 
-Currently, two official plugins are available:
+### Goal
+The main purpose of this project is for me to practice and get comfortable with the React ecosystem. I wanted to see how to fetch movie data efficiently, manage different UI states (like loading spinners and error messages), and just overall build a fast, responsive search experience using clean code.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Tech Stack:
+- Framework: React (Vite)
+- Styling: Tailwind CSS & Framer Motion (for animations)
+- State Management: Zustand (Global Store)
+- Data Fetching: Axios & TMDB API
+- Icons: Lucide React
 
-## React Compiler
+### What's Inside?
+1. **Real-time Movie Discovery**: Fetches and displays trending, popular, and searched movies dynamically.
+2. **Global Watchlist**: Manage your favorite movies across the app using Zustand for persistent state.
+3. **Advanced Image Fallback**: A robust system that handles missing posters, backdrops, or broken API links using local assets to ensure a consistent UI.
+4. **Global Notification System**: Real-time feedback for user actions (e.g., watchlist limits or trailer availability) using a custom Toast store.
+5. **Interactive UI**: Smooth transitions and stagger animations powered by Framer Motion, including a custom-built Trailer Modal.
+6. **Responsive & Accessible**: Optimized for various screen sizes with clean, reusable component architecture.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### How to Run:
 
-## Expanding the ESLint configuration
+1. **Clone the repository and install dependencies**
+    ```bash
+    git clone https://github.com/deandamanik/movix-app.git
+    cd movix-app
+    npm install
+    ``` 
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. **Environment Setup**
+
+    Copy the example environment file to create your own .env file and add your API Key:
+
+    ```bash 
+    VITE_MOVIE_API_KEY=your_api_key_here
+    ```
+
+3. **Start Server**
+
+    ```bash
+    npm run dev
+    ```
